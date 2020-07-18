@@ -1,0 +1,15 @@
+name: TruffleRuby
+on: [push]
+
+jobs:
+  truffleruby:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 'truffleruby-head'
+          bundler-cache: true
+      - run: sudo apt-get install libxml2-dev libxslt-dev
+      - run: bundle exec rake compile
+      - run: bundle exec rake test
