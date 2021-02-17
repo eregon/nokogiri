@@ -614,7 +614,7 @@ if using_system_libraries?
 else
   message "Building nokogiri using packaged libraries.\n"
 
-  static_p = enable_config("static", true)
+  static_p = enable_config("static", RUBY_ENGINE != 'truffleruby')
   message "Static linking is #{static_p ? 'enabled' : 'disabled'}.\n"
 
   cross_build_p = enable_config("cross-build")
