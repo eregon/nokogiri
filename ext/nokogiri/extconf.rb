@@ -293,8 +293,10 @@ def libflag_to_filename(ldflag)
 end
 
 def using_system_libraries?
-  # NOTE: TruffleRuby uses this env var as it does not support using static libraries yet.
-  arg_config('--use-system-libraries', ENV.key?("NOKOGIRI_USE_SYSTEM_LIBRARIES"))
+  # NOTE: TruffleRuby uses this env var to change the default to true.
+  # It can be set to false with '--use-system-libraries=false' to override the env var.
+  value = arg_config('--use-system-libraries', ENV.key?("NOKOGIRI_USE_SYSTEM_LIBRARIES"))
+  value && value.to_s != "false"
 end
 
 def have_libxml_headers?(version = nil)
